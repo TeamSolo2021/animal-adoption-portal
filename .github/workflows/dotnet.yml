@@ -16,14 +16,16 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 3.1.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Publish
+      run: dotnet publish --output /home/publish --no-build
 #     - name: Test
 #       run: dotnet test --no-build --verbosity normal
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: /home/runner/work/animal-adoption-portal/animal-adoption-portal/AnimalAdoption.Web.Portal
+        path: /home/publish
