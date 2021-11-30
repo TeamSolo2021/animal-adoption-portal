@@ -22,10 +22,10 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Publish
-      run: dotnet publish --output /home/publish --no-build
+      run: dotnet publish --output ./publish --no-build
 #     - name: Test
 #       run: dotnet test --no-build --verbosity normal
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: /home/publish
+        path: ./publish
