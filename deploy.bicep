@@ -1,4 +1,4 @@
-param resourceLocation string = 'australiaeast'
+param resourceLocation string = 'southeastasia'
 param tenantGuid string
 param appServicePlanName string
 param keyVaultName string
