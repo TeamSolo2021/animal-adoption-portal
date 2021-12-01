@@ -34,7 +34,7 @@ jobs:
         name: bicep
         path: deploy.bicep
   deploy:
-
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
