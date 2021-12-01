@@ -16,10 +16,40 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 3.1.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Publish
+      run: dotnet publish --output ./publish --no-build
 #     - name: Test
 #       run: dotnet test --no-build --verbosity normal
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ./publish
+    - uses: actions/upload-artifact@v2
+      with:
+        name: bicep
+        path: deploy.bicep
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: bicep
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_SPN }}
+    - name: deploy
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: cfe96ac1-4cd0-40ad-9751-b18802bf8822
+        resourceGroupName: DevOpsGitHub-2021-12-01-team-01-prod
+        template: deploy.bicep
+        parameters: tenantGuid=2f4a9838-26b7-47ee-be60-ccc1fdec5953 appServicePlanName=animaladoption-prd-asp keyVaultName=animaladoption-kvt webAppName=animaladoption-web resourceGroupServicePrincipalManagedApplicationObjectId=88cf813f-58fd-4e08-8586-4f3f650c6985
+        failOnStdErr: false
+
