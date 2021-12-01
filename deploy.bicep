@@ -8,6 +8,14 @@ param resourceGroupServicePrincipalManagedApplicationObjectId string
 var keyVaultSecretNameSimulatedFailureChance = 'SimulatedFailureChance'
 var keyVaultSecretNameGlobalPassword = 'GlobalPassword'
 
+resource acr 'Microsoft.ContainerRegistry/registries@2021-06-01-preview' = {
+  location: resourceLocation
+  name: 'container-acr'
+  sku: {
+    name: 'Basic'
+  }
+}
+
 resource ai_resource 'Microsoft.Insights/components@2020-02-02' = {
   name: '${webAppName}-ai'
   location: resourceLocation
@@ -135,7 +143,7 @@ resource webAppName_resource 'Microsoft.Web/sites@2018-11-01' = {
       appSettings: []
       linuxFxVersion: 'DOTNETCORE|3.1'
       alwaysOn: true
-    } 
+    }
     serverFarmId: appServicePlanName_resource.id
     clientAffinityEnabled: false
   }

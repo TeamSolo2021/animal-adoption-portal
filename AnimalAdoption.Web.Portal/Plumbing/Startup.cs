@@ -30,6 +30,7 @@ namespace AnimalAdoption.Web.Portal.Plumbing
             services.AddTransient<AnimalService>();
             services.AddTransient<LoginService>();
             services.AddRazorPages();
+            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
