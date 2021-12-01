@@ -10,7 +10,7 @@ var keyVaultSecretNameGlobalPassword = 'GlobalPassword'
 
 resource acr 'Microsoft.ContainerRegistry/registries@2021-06-01-preview' = {
   location: resourceLocation
-  name: 'container-acr'
+  name: 'containeracrunique'
   sku: {
     name: 'Basic'
   }
