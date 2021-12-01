@@ -8,6 +8,17 @@ param resourceGroupServicePrincipalManagedApplicationObjectId string
 var keyVaultSecretNameSimulatedFailureChance = 'SimulatedFailureChance'
 var keyVaultSecretNameGlobalPassword = 'GlobalPassword'
 
+resource ai_resource 'Microsoft.Insights/components@2020-02-02' = {
+  name: '${webAppName}-ai'
+  location: resourceLocation
+  kind: 'web'
+  properties: {
+    RetentionInDays: 30
+    SamplingPercentage: 100
+    Application_Type: 'web'
+  }
+}
+
 resource keyVaultName_resource 'Microsoft.KeyVault/vaults@2018-02-14' = {
   name: keyVaultName
   location: resourceLocation
